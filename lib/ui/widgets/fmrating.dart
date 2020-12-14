@@ -3,7 +3,7 @@ part of 'widgets.dart';
 class FmRating extends StatelessWidget {
   FmRating({this.stars});
 
-  final int stars;
+  final double stars;
 
   @override
   Widget build(BuildContext context) {
