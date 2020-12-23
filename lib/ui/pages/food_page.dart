@@ -5,33 +5,69 @@ class FoodPage extends StatefulWidget {
   _FoodPageState createState() => _FoodPageState();
 }
 
-class _FoodPageState extends State<FoodPage> {
+class _FoodPageState extends State<FoodPage>
+    with SingleTickerProviderStateMixin {
+  TabController categoryTabController;
+  List<Tab> categoryTabs = [
+    Tab(text: 'New Taste'),
+    Tab(text: 'Popular'),
+    Tab(text: 'Recomended'),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    categoryTabController = TabController(
+      length: categoryTabs.length,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    categoryTabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var stars = 3;
-
     return ListView(
       children: [
         renderFoodHeader(),
+        renderFoodCards(),
         Container(
-          height: 258,
+          color: Colors.white,
           width: double.infinity,
-          color: tBackgroundColor,
-          alignment: Alignment.center,
-          child: ListView(
-            padding: EdgeInsets.only(left: tDefaultPadding),
-            scrollDirection: Axis.horizontal,
+          child: Column(
             children: [
-              Row(
-                children: mockFoods
-                    .map(
-                      (food) => Padding(
-                        padding: EdgeInsets.only(right: tDefaultPadding),
-                        child: FmFoodCard(food: food),
-                      ),
-                    )
-                    .toList(),
-              )
+              TabBar(
+                indicatorColor: Colors.black,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorWeight: 3,
+                labelColor: Colors.black,
+                labelStyle: tButtonPrimaryFontSyle,
+                unselectedLabelColor: tSubtitleColor,
+                unselectedLabelStyle: tSubtitleFontSyle,
+                controller: categoryTabController,
+                tabs: categoryTabs,
+              ),
+              Container(
+                height: 300,
+                child: TabBarView(
+                  controller: categoryTabController,
+                  children: [
+                    Center(
+                      child: Text('New Taste'),
+                    ),
+                    Center(
+                      child: Text('Popular'),
+                    ),
+                    Center(
+                      child: Text('Recomended'),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         )
@@ -64,6 +100,31 @@ class _FoodPageState extends State<FoodPage> {
                   image: NetworkImage(
                       'https://images.unsplash.com/photo-1569124589354-615739ae007b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')),
             ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Container renderFoodCards() {
+    return Container(
+      height: 258,
+      width: double.infinity,
+      color: tBackgroundColor,
+      alignment: Alignment.center,
+      child: ListView(
+        padding: EdgeInsets.only(left: tDefaultPadding),
+        scrollDirection: Axis.horizontal,
+        children: [
+          Row(
+            children: mockFoods
+                .map(
+                  (food) => Padding(
+                    padding: EdgeInsets.only(right: tDefaultPadding),
+                    child: FmFoodCard(food: food),
+                  ),
+                )
+                .toList(),
           )
         ],
       ),
