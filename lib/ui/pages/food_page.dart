@@ -40,24 +40,50 @@ class _FoodPageState extends State<FoodPage>
           width: double.infinity,
           child: Column(
             children: [
-              TabBar(
-                indicatorColor: Colors.black,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorWeight: 3,
-                labelColor: Colors.black,
-                labelStyle: tButtonPrimaryFontSyle,
-                unselectedLabelColor: tSubtitleColor,
-                unselectedLabelStyle: tSubtitleFontSyle,
-                controller: categoryTabController,
-                tabs: categoryTabs,
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Color(0xFFF2F2F2), width: 1),
+                  ),
+                ),
+                child: TabBar(
+                  indicatorColor: Colors.black,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorWeight: 3,
+                  labelColor: Colors.black,
+                  labelStyle: tButtonPrimaryFontSyle,
+                  unselectedLabelColor: tSubtitleColor,
+                  unselectedLabelStyle: tSubtitleFontSyle,
+                  controller: categoryTabController,
+                  tabs: categoryTabs,
+                ),
               ),
               Container(
                 height: 300,
+                width: double.infinity,
+                padding: EdgeInsets.fromLTRB(
+                  tDefaultPadding,
+                  12,
+                  tDefaultPadding,
+                  0,
+                ),
                 child: TabBarView(
                   controller: categoryTabController,
                   children: [
-                    Center(
-                      child: Text('New Taste'),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: mockFoods
+                          .map(
+                            (food) => Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: FmFoodItem(
+                                food: food,
+                                width: MediaQuery.of(context).size.width -
+                                    (2 * tDefaultPadding),
+                              ),
+                            ),
+                          )
+                          .toList(),
                     ),
                     Center(
                       child: Text('Popular'),

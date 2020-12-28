@@ -9,3 +9,4 @@ part 'fmbutton.dart';
 part 'fmbottom_navigation.dart';
 part 'fmrating.dart';
 part 'fmfood_card.dart';
+part 'fmfood_item.dart';
