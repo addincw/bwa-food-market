@@ -38,6 +38,7 @@ class _FoodPageState extends State<FoodPage>
         Container(
           color: Colors.white,
           width: double.infinity,
+          // margin: EdgeInsets.only(bottom: 19),
           child: Column(
             children: [
               Container(
@@ -59,19 +60,17 @@ class _FoodPageState extends State<FoodPage>
                 ),
               ),
               Container(
-                height: 300,
+                height: 240,
                 width: double.infinity,
-                padding: EdgeInsets.fromLTRB(
-                  tDefaultPadding,
-                  12,
-                  tDefaultPadding,
-                  0,
-                ),
                 child: TabBarView(
                   controller: categoryTabController,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                    ListView(
+                      padding: EdgeInsets.only(
+                        top: 12,
+                        left: tDefaultPadding,
+                        right: tDefaultPadding,
+                      ),
                       children: mockFoods
                           .map(
                             (food) => Padding(
@@ -96,7 +95,7 @@ class _FoodPageState extends State<FoodPage>
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

@@ -4,7 +4,7 @@ class FmFoodItem extends StatelessWidget {
   final Food food;
   final double width;
 
-  FmFoodItem({@required this.food, this.width});
+  FmFoodItem({@required this.food, @required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class FmFoodItem extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: width - 182,
+          width: width * 0.45,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34,7 +34,15 @@ class FmFoodItem extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(food.price.toString(), style: tLabelFontSyle, maxLines: 1),
+              Text(
+                NumberFormat.currency(
+                  symbol: 'IDR ',
+                  decimalDigits: 0,
+                  locale: 'id-ID',
+                ).format(food.price),
+                style: tSubtitleFontSyle,
+                maxLines: 1,
+              ),
             ],
           ),
         ),

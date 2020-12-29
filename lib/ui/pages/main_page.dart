@@ -16,8 +16,9 @@ class _MainPageState extends State<MainPage> {
         child: PageView(
           controller: pageController,
           onPageChanged: (page) {
-            currentPage = page;
-            setState(() {});
+            setState(() {
+              currentPage = page;
+            });
           },
           children: [
             FoodPage(),
