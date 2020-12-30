@@ -13,6 +13,7 @@ class _FoodPageState extends State<FoodPage>
     Tab(text: 'Popular'),
     Tab(text: 'Recomended'),
   ];
+  int categoryTabIndex = 0;
 
   @override
   void initState() {
@@ -34,69 +35,90 @@ class _FoodPageState extends State<FoodPage>
     return ListView(
       children: [
         renderFoodHeader(),
-        renderFoodCards(),
-        Container(
-          color: Colors.white,
-          width: double.infinity,
-          // margin: EdgeInsets.only(bottom: 19),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Color(0xFFF2F2F2), width: 1),
-                  ),
-                ),
-                child: TabBar(
-                  indicatorColor: Colors.black,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicatorWeight: 3,
-                  labelColor: Colors.black,
-                  labelStyle: tButtonPrimaryFontSyle,
-                  unselectedLabelColor: tSubtitleColor,
-                  unselectedLabelStyle: tSubtitleFontSyle,
-                  controller: categoryTabController,
-                  tabs: categoryTabs,
-                ),
-              ),
-              Container(
-                height: 240,
-                width: double.infinity,
-                child: TabBarView(
-                  controller: categoryTabController,
-                  children: [
-                    ListView(
-                      padding: EdgeInsets.only(
-                        top: 12,
-                        left: tDefaultPadding,
-                        right: tDefaultPadding,
-                      ),
-                      children: mockFoods
-                          .map(
-                            (food) => Padding(
-                              padding: const EdgeInsets.only(bottom: 16),
-                              child: FmFoodItem(
-                                food: food,
-                                width: MediaQuery.of(context).size.width -
-                                    (2 * tDefaultPadding),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                    Center(
-                      child: Text('Popular'),
-                    ),
-                    Center(
-                      child: Text('Recomended'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+        renderFoodListCard(),
+        renderFoodListItem(),
+        Container(color: tBackgroundColor, height: 16)
       ],
+    );
+  }
+
+  Container renderFoodListItem() {
+    return Container(
+      color: Colors.white,
+      width: double.infinity,
+      // margin: EdgeInsets.only(bottom: 19),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Color(0xFFF2F2F2), width: 1),
+              ),
+            ),
+            child: TabBar(
+              indicatorSize: TabBarIndicatorSize.label,
+              indicator: MD2Indicator(
+                indicatorHeight: 3,
+                indicatorColor: Colors.black,
+                indicatorSize: MD2IndicatorSize.normal,
+              ),
+              labelColor: Colors.black,
+              labelStyle: tButtonPrimaryFontSyle,
+              unselectedLabelColor: tSubtitleColor,
+              unselectedLabelStyle: tSubtitleFontSyle,
+              controller: categoryTabController,
+              tabs: categoryTabs,
+              onTap: (tabIndex) {
+                setState(() {
+                  categoryTabIndex = tabIndex;
+                });
+              },
+            ),
+          ),
+          Builder(builder: (context) {
+            List<Food> foods = [];
+            switch (categoryTabIndex) {
+              case 0:
+                {
+                  foods = mockFoods;
+                }
+                break;
+
+              default:
+                {
+                  foods = [];
+                }
+                break;
+            }
+
+            return Container(
+              color: Colors.white,
+              padding: const EdgeInsets.only(
+                top: 16,
+                left: tDefaultPadding,
+                right: tDefaultPadding,
+              ),
+              child: Column(
+                children: foods
+                    .map(
+                      (food) => Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: FmFoodItem(
+                            food: food,
+                            width: MediaQuery.of(context).size.width -
+                                (2 * tDefaultPadding),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            );
+          }),
+        ],
+      ),
     );
   }
 
@@ -131,7 +153,7 @@ class _FoodPageState extends State<FoodPage>
     );
   }
 
-  Container renderFoodCards() {
+  Container renderFoodListCard() {
     return Container(
       height: 258,
       width: double.infinity,

@@ -38,9 +38,10 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: FmBottomNavigation(
         currentIndex: currentPage,
         onTap: (page) {
-          currentPage = page;
           pageController.jumpToPage(page);
-          setState(() {});
+          setState(() {
+            currentPage = page;
+          });
         },
       ),
     );
