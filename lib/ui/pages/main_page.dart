@@ -22,11 +22,7 @@ class _MainPageState extends State<MainPage> {
           },
           children: [
             FoodPage(),
-            Container(
-              color: Colors.white,
-              alignment: Alignment.center,
-              child: Text("Order"),
-            ),
+            OrderEmptyPage(),
             Container(
               color: Colors.white,
               alignment: Alignment.center,

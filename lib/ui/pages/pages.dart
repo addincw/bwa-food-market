@@ -7,7 +7,10 @@ import 'package:pro_fl_food_market/ui/pages/layouts/layouts.dart';
 import 'package:pro_fl_food_market/ui/widgets/widgets.dart';
 
 part 'signup_page.dart';
+part 'signup_success_page.dart';
 part 'address_page.dart';
 part 'signin_page.dart';
 part 'main_page.dart';
 part 'food_page.dart';
+part 'order_empty_page.dart';
+part 'order_success_page.dart';

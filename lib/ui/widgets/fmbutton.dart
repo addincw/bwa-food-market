@@ -13,12 +13,11 @@ class FmButton extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 8),
       width: double.infinity,
-      child: RaisedButton(
+      child: FlatButton(
         padding: EdgeInsets.symmetric(vertical: 12),
         onPressed: () {
           if (onPressed != null) onPressed();
         },
-        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
