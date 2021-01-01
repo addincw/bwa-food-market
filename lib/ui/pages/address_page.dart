@@ -25,6 +25,7 @@ class _AddressPageState extends State<AddressPage> {
             FmTextField(labelName: "Address"),
             FmTextField(labelName: "House Number"),
             FmSelectionField(labelName: "City"),
+            SizedBox(height: 8.0),
             FmButton(
               text: "Sign Up Now",
               textStyle: tButtonPrimaryFontSyle,

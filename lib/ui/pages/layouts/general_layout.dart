@@ -31,7 +31,9 @@ class GeneralLayout extends StatelessWidget {
                       color: Colors.white,
                       child: Row(
                         children: [
-                          renderBackButton(),
+                          FmButtonBack(
+                            onBackButtonPressed: this.onBackButtonPressed,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -62,25 +64,5 @@ class GeneralLayout extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget renderBackButton() {
-    if (this.onBackButtonPressed != null) {
-      return GestureDetector(
-        onTap: onBackButtonPressed,
-        child: Container(
-          width: 24,
-          height: 24,
-          margin: EdgeInsets.only(right: 26),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/back_arrow.png'),
-            ),
-          ),
-        ),
-      );
-    }
-
-    return SizedBox();
   }
 }

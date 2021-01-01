@@ -21,7 +21,7 @@ class IllustrationLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<FmButton> actions = [
+    List<Widget> actions = [
       FmButton(
         color: tPrimaryColor,
         text: actionPrimaryTitle,
@@ -30,11 +30,14 @@ class IllustrationLayout extends StatelessWidget {
     ];
 
     if (actionSecondaryTitle != null) {
-      actions.add(FmButton(
-        color: tSubtitleColor,
-        text: actionSecondaryTitle,
-        textStyle: tButtonSecondaryFontSyle,
-      ));
+      actions.addAll([
+        SizedBox(height: 8.0),
+        FmButton(
+          color: tSubtitleColor,
+          text: actionSecondaryTitle,
+          textStyle: tButtonSecondaryFontSyle,
+        )
+      ]);
     }
 
     return Center(

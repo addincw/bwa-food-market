@@ -11,7 +11,6 @@ class FmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
       width: double.infinity,
       child: FlatButton(
         padding: EdgeInsets.symmetric(vertical: 12),

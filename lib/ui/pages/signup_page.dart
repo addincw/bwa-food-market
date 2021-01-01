@@ -45,6 +45,7 @@ class _SignupPageState extends State<SignupPage> {
             FmTextField(labelName: "Full Name"),
             FmTextField(labelName: "Email Address"),
             FmTextField(labelName: "Password"),
+            SizedBox(height: 8.0),
             FmButton(
               text: "Continue",
               textStyle: tButtonPrimaryFontSyle,

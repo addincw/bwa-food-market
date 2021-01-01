@@ -25,6 +25,7 @@ class _SigninPageState extends State<SigninPage> {
               textStyle: tButtonPrimaryFontSyle,
               color: tPrimaryColor,
             ),
+            SizedBox(height: 8.0),
             FmButton(
               text: "Create New Account",
               textStyle: tButtonSecondaryFontSyle,
