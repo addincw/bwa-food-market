@@ -1,11 +1,11 @@
 part of 'pages.dart';
 
-class AddressPage extends StatefulWidget {
+class SignupAddressPage extends StatefulWidget {
   @override
-  _AddressPageState createState() => _AddressPageState();
+  _SignupAddressPageState createState() => _SignupAddressPageState();
 }
 
-class _AddressPageState extends State<AddressPage> {
+class _SignupAddressPageState extends State<SignupAddressPage> {
   @override
   Widget build(BuildContext context) {
     return GeneralLayout(

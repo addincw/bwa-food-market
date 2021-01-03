@@ -5,12 +5,14 @@ class GeneralLayout extends StatelessWidget {
   final String subtitle;
   final Function onBackButtonPressed;
   final Widget child;
+  final Widget bottomActionBar;
 
   GeneralLayout({
     this.title = "",
     this.subtitle = "",
     this.onBackButtonPressed,
     this.child,
+    this.bottomActionBar,
   });
 
   @override
@@ -23,6 +25,7 @@ class GeneralLayout extends StatelessWidget {
             ListView(
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       padding: EdgeInsets.all(tDefaultPadding),
@@ -63,6 +66,8 @@ class GeneralLayout extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar:
+          bottomActionBar != null ? bottomActionBar : SizedBox(),
     );
   }
 }

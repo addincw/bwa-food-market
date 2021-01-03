@@ -37,7 +37,7 @@ class _FoodPageState extends State<FoodPage>
         renderFoodHeader(),
         renderFoodListCard(),
         renderFoodListItem(),
-        Container(color: tBackgroundColor, height: 16)
+        // Container(color: tBackgroundColor, height: 16)
       ],
     );
   }
@@ -79,15 +79,10 @@ class _FoodPageState extends State<FoodPage>
             List<Food> foods = [];
             switch (categoryTabIndex) {
               case 0:
-                {
-                  foods = mockFoods;
-                }
+                foods = mockFoods;
                 break;
-
               default:
-                {
-                  foods = [];
-                }
+                foods = [];
                 break;
             }
 

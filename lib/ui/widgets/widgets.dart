@@ -12,3 +12,6 @@ part 'fmbottom_navigation.dart';
 part 'fmrating.dart';
 part 'fmfood_card.dart';
 part 'fmfood_item.dart';
+part 'fmfood_item_ordered.dart';
+part 'fmfood_item_ordered_progress.dart';
+part 'fmfood_item_ordered_history.dart';

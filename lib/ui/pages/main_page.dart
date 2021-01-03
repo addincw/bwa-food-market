@@ -12,6 +12,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: PageView(
           controller: pageController,
@@ -22,12 +23,8 @@ class _MainPageState extends State<MainPage> {
           },
           children: [
             FoodPage(),
-            OrderEmptyPage(),
-            Container(
-              color: Colors.white,
-              alignment: Alignment.center,
-              child: Text("Profile"),
-            ),
+            OrderHistoryPage(),
+            ProfilePage(),
           ],
         ),
       ),

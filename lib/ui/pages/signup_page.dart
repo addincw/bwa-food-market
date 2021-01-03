@@ -51,7 +51,7 @@ class _SignupPageState extends State<SignupPage> {
               textStyle: tButtonPrimaryFontSyle,
               color: tPrimaryColor,
               onPressed: () {
-                Get.to(AddressPage());
+                Get.to(SignupAddressPage());
               },
             ),
           ],
