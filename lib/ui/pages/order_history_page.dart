@@ -81,7 +81,9 @@ class _OrderHistoryPageState extends State<OrderHistoryPage>
                       (transaction) => Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(OrderCheckoutPage(transaction: transaction));
+                          },
                           child: FmFoodItemOrderedProgress(
                             food: transaction.food,
                             quantity: transaction.quantity,

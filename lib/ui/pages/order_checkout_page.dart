@@ -15,7 +15,9 @@ class OrderCheckoutPage extends StatelessWidget {
     return GeneralLayout(
       title: 'Payment',
       subtitle: 'You deserve better meal',
-      onBackButtonPressed: () {},
+      onBackButtonPressed: () {
+        Get.back();
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

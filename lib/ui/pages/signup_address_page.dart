@@ -30,6 +30,9 @@ class _SignupAddressPageState extends State<SignupAddressPage> {
               text: "Sign Up Now",
               textStyle: tButtonPrimaryFontSyle,
               color: tPrimaryColor,
+              onPressed: () {
+                Get.to(MainPage());
+              },
             ),
           ],
         ),

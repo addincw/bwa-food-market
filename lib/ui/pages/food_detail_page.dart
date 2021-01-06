@@ -11,18 +11,21 @@ class FoodDetailPage extends StatefulWidget {
 
 class _FoodDetailPageState extends State<FoodDetailPage> {
   final foodImageHeight = 330.0;
+
+  double quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: [
-            Container(color: Colors.white),
             Image.network(
               widget.food.picturePath,
               width: double.infinity,
               height: foodImageHeight,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
             ListView(
               children: [
@@ -36,7 +39,9 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                       ),
                       child: FmButtonBack(
                         isOverlay: true,
-                        onBackButtonPressed: () {},
+                        onBackButtonPressed: () {
+                          Get.back();
+                        },
                       ),
                     ),
                     SizedBox(height: foodImageHeight - 70),
@@ -71,7 +76,11 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                               Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        quantity = max(1, quantity - 1);
+                                      });
+                                    },
                                     child: Image.asset(
                                       'assets/btn_min.png',
                                       width: 26,
@@ -82,10 +91,17 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 10,
                                     ),
-                                    child: Text('1', style: tLabelFontSyle),
+                                    child: Text(
+                                      quantity.toInt().toString(),
+                                      style: tLabelFontSyle,
+                                    ),
                                   ),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        quantity = min(99, quantity + 1);
+                                      });
+                                    },
                                     child: Image.asset(
                                       'assets/btn_add.png',
                                       width: 26,
@@ -140,7 +156,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                     symbol: 'IDR ',
                     decimalDigits: 0,
                     locale: 'id-ID',
-                  ).format(widget.food.price),
+                  ).format(widget.food.price * quantity),
                   style: tLabelFontSyle,
                   maxLines: 1,
                 ),
