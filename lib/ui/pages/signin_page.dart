@@ -6,17 +6,40 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool _isSigninLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    _signin() {
+    _signin() async {
       setState(() {
         _isSigninLoading = true;
       });
 
-      // context.bloc<AuthCubit>().signin()
-      // Get.to(MainPage());
+      await context.read<AuthCubit>().signin(
+            emailController.text,
+            passwordController.text,
+          );
+
+      setState(() {
+        _isSigninLoading = false;
+      });
+
+      AuthState state = context.read<AuthCubit>().state;
+      if (state is AuthFailed) {
+        Get.snackbar(
+          'Oops!',
+          state.message,
+          snackStyle: SnackStyle.GROUNDED,
+          margin: EdgeInsets.zero,
+          backgroundColor: Color(0xFFD9435E),
+          colorText: Colors.white,
+          icon: Icon(MdiIcons.closeCircleOutline, color: Colors.white),
+        );
+      } else if (state is AuthSignedIn) {
+        Get.to(MainPage());
+      }
     }
 
     return GeneralLayout(

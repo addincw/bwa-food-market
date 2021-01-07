@@ -1,10 +1,11 @@
 part of 'widgets.dart';
 
 class FmTextField extends StatelessWidget {
+  final TextEditingController controller;
   final String labelName;
   final bool isEditable;
 
-  FmTextField({this.labelName, this.isEditable = true});
+  FmTextField({this.controller, this.labelName, this.isEditable = true});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class FmTextField extends StatelessWidget {
             border: Border.all(color: Colors.black),
           ),
           child: TextField(
+            controller: controller,
             enabled: isEditable,
             decoration: InputDecoration(
               border: InputBorder.none,

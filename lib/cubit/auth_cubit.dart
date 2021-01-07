@@ -12,8 +12,10 @@ class AuthCubit extends Cubit<AuthState> {
   Future signin(String username, String password) async {
     ApiResponse<User> response = await AuthServices.signin(username, password);
 
-    (response.value != null)
-        ? emit(AuthSignedIn(response.value))
-        : emit(AuthFailed(response.message));
+    if (response.value != null) {
+      emit(AuthSignedIn(response.value));
+    } else {
+      emit(AuthFailed(response.message));
+    }
   }
 }
