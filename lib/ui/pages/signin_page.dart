@@ -53,10 +53,12 @@ class _SigninPageState extends State<SigninPage> {
         child: Column(
           children: [
             FmTextField(
+              controller: emailController,
               labelName: "Email Address",
               isEditable: !_isSigninLoading,
             ),
             FmTextField(
+              controller: passwordController,
               labelName: "Password",
               isEditable: !_isSigninLoading,
             ),

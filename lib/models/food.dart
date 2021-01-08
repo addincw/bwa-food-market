@@ -1,5 +1,7 @@
 part of 'models.dart';
 
+enum FoodCategory { new_food, popular, recommended }
+
 class Food extends Equatable {
   final int id;
   final String picturePath;
@@ -8,6 +10,7 @@ class Food extends Equatable {
   final String ingredients;
   final int price;
   final double rate;
+  final List<FoodCategory> categories;
 
   Food({
     this.id,
@@ -17,6 +20,7 @@ class Food extends Equatable {
     this.ingredients,
     this.price,
     this.rate,
+    this.categories,
   });
 
   @override
@@ -28,6 +32,7 @@ class Food extends Equatable {
         ingredients,
         price,
         rate,
+        categories,
       ];
 }
 
@@ -42,6 +47,11 @@ List<Food> mockFoods = [
     ingredients: "Bawang Merah, Paprika, Bawang Bombay, Timun",
     price: 150000,
     rate: 4.2,
+    categories: [
+      FoodCategory.new_food,
+      FoodCategory.recommended,
+      FoodCategory.popular
+    ],
   ),
   Food(
     id: 2,
@@ -53,6 +63,7 @@ List<Food> mockFoods = [
     ingredients: "Daging Sapi Korea, Garam, Lada Hitam",
     price: 750000,
     rate: 4.5,
+    categories: [FoodCategory.new_food, FoodCategory.popular],
   ),
   Food(
     id: 3,
@@ -64,6 +75,7 @@ List<Food> mockFoods = [
     ingredients: "Jagung, Selada, Tomat Ceri, Keju, Wortel",
     price: 105900,
     rate: 3.9,
+    categories: [FoodCategory.recommended, FoodCategory.popular],
   ),
   Food(
     id: 4,
@@ -75,6 +87,7 @@ List<Food> mockFoods = [
     ingredients: "Wortel, Seledri, Kacang Tanah, Labu, Garam, Gula",
     price: 60000,
     rate: 4.9,
+    categories: [FoodCategory.new_food],
   ),
   Food(
     id: 5,
@@ -86,5 +99,6 @@ List<Food> mockFoods = [
     ingredients: "Daging Sapi Korea, Telur, Biji Wijen",
     price: 350000,
     rate: 3.4,
+    categories: [FoodCategory.recommended],
   )
 ];

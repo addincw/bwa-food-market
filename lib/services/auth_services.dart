@@ -7,7 +7,7 @@ class AuthServices {
   ) async {
     await Future.delayed(Duration(milliseconds: 500));
 
-    // return ApiResponse(value: mockUser);
-    return ApiResponse(message: 'something when wrong');
+    return ApiResponse(value: mockUser);
+    // return ApiResponse(message: 'something when wrong');
   }
 }

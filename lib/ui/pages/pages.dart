@@ -5,6 +5,8 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:md2_tab_indicator/md2_tab_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -32,17 +32,19 @@ class _FoodPageState extends State<FoodPage>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FoodCubit>().getAll();
+
     return ListView(
       children: [
-        renderFoodHeader(),
-        renderFoodListCard(),
-        renderFoodListItem(),
+        _renderFoodHeader(),
+        _renderFoodListCard(),
+        _renderFoodListItem(),
         // Container(color: tBackgroundColor, height: 16)
       ],
     );
   }
 
-  Container renderFoodHeader() {
+  Container _renderFoodHeader() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(tDefaultPadding),
@@ -57,53 +59,73 @@ class _FoodPageState extends State<FoodPage>
               Text("Let's get some foods", style: tSubtitleFontSyle),
             ],
           ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                      'https://images.unsplash.com/photo-1569124589354-615739ae007b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')),
-            ),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image:
+                        NetworkImage((state as AuthSignedIn).user.picturePath),
+                  ),
+                ),
+              );
+            },
           )
         ],
       ),
     );
   }
 
-  Container renderFoodListCard() {
+  Container _renderFoodListCard() {
     return Container(
       height: 258,
       width: double.infinity,
       color: tBackgroundColor,
       alignment: Alignment.center,
-      child: ListView(
-        padding: EdgeInsets.only(left: tDefaultPadding),
-        scrollDirection: Axis.horizontal,
-        children: [
-          Row(
-            children: mockFoods
-                .map(
-                  (food) => Padding(
-                    padding: EdgeInsets.only(right: tDefaultPadding),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.to(FoodDetailPage(food: food));
-                      },
-                      child: FmFoodCard(food: food),
-                    ),
-                  ),
-                )
-                .toList(),
-          )
-        ],
+      child: BlocBuilder<FoodCubit, FoodState>(
+        builder: (context, state) {
+          if (state is FoodInitial) {
+            return Center(
+              child: Loading(
+                indicator: BallPulseIndicator(),
+                size: 20,
+                color: tPrimaryColor,
+              ),
+            );
+          }
+
+          return ListView(
+            padding: EdgeInsets.only(left: tDefaultPadding),
+            scrollDirection: Axis.horizontal,
+            children: [
+              Row(
+                children: (state as FoodLoaded)
+                    .foods
+                    .map(
+                      (food) => Padding(
+                        padding: EdgeInsets.only(right: tDefaultPadding),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(FoodDetailPage(food: food));
+                          },
+                          child: FmFoodCard(food: food),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              )
+            ],
+          );
+        },
       ),
     );
   }
 
-  Container renderFoodListItem() {
+  Container _renderFoodListItem() {
     return Container(
       color: Colors.white,
       width: double.infinity,
@@ -137,10 +159,43 @@ class _FoodPageState extends State<FoodPage>
             ),
           ),
           Builder(builder: (context) {
-            List<Food> foods = [];
+            if (context.watch<FoodCubit>().state is FoodInitial ||
+                context.watch<FoodCubit>().state is FoodLoadFailed) {
+              return Center(
+                child: Loading(
+                  indicator: BallPulseIndicator(),
+                  size: 20,
+                  color: tPrimaryColor,
+                ),
+              );
+            }
+
+            List<Food> foods =
+                (context.watch<FoodCubit>().state as FoodLoaded).foods;
             switch (categoryTabIndex) {
               case 0:
-                foods = mockFoods;
+                foods = foods.length > 0
+                    ? foods
+                        .where((food) =>
+                            food.categories.contains(FoodCategory.new_food))
+                        .toList()
+                    : [];
+                break;
+              case 1:
+                foods = foods.length > 0
+                    ? foods
+                        .where((food) =>
+                            food.categories.contains(FoodCategory.popular))
+                        .toList()
+                    : [];
+                break;
+              case 2:
+                foods = foods.length > 0
+                    ? foods
+                        .where((food) =>
+                            food.categories.contains(FoodCategory.recommended))
+                        .toList()
+                    : [];
                 break;
               default:
                 foods = [];

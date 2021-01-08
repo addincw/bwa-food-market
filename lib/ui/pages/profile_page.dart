@@ -41,28 +41,40 @@ class _ProfilePageState extends State<ProfilePage>
               image: AssetImage('assets/photo_border.png'),
             ),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://images.unsplash.com/photo-1569124589354-615739ae007b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'),
-                fit: BoxFit.cover,
-              ),
-            ),
+          child: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image:
+                        NetworkImage((state as AuthSignedIn).user.picturePath),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            },
           ),
         ),
-        Text(
-          'Angga Risky',
-          style: GoogleFonts.poppins().copyWith(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
+        BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            return Text(
+              (state as AuthSignedIn).user.name,
+              style: GoogleFonts.poppins().copyWith(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            );
+          },
         ),
         SizedBox(height: 6),
-        Text(
-          'anggarisky@gmail.com',
-          style: tSubtitleFontSyle,
+        BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            return Text(
+              (state as AuthSignedIn).user.email,
+              style: tSubtitleFontSyle,
+            );
+          },
         ),
         SizedBox(height: 26),
         TabBar(
